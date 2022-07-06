@@ -7,12 +7,11 @@ import java.util.List;
  *
  * @author Vladimir Ivanov (ivanov.vladimir.l@gmail.com)
  */
-public interface Repository<T extends BaseEntity> {
-	T getById(long id);
+public interface GenreRepository {
+	User getById(long id);
 
-	List<T> getAll();
+	List<User> getAll();
 
-	T save(T data);
-
-	void update(T data);
+	void setFilmGenre(Film film);
+	void loadFilmGenre(Film film);
 }

@@ -21,4 +21,14 @@ public class AbstractRepository<T extends BaseEntity> implements Repository<T> {
 	public List<T> getAll() {
 		return null;
 	}
+
+	@Override
+	public T save(T data) {
+		return null;
+	}
+
+	@Override
+	public void update(T data) {
+
+	}
 }
