@@ -12,5 +12,7 @@ public interface Repository<T extends BaseEntity> {
 
 	List<T> getAll();
 
-	// TODO
+	T save(T data);
+
+	void update(T data);
 }

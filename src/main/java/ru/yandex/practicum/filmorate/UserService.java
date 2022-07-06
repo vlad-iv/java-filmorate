@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,6 +12,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-	Autowired
-	UserRepository userRepository;
+	@Autowired
+	UserRepository repository;
+
+
+	public User save(User user) {
+		return repository.save(user);
+	}
+
+	public User get(long id) {
+		return repository.getById(id);
+	}
 }
