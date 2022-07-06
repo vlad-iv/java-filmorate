@@ -1,14 +1,17 @@
 package ru.yandex.practicum.filmorate.model;
 
-import java.util.HashSet;
+import java.time.LocalDate;
 import java.util.Set;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+import ru.yandex.practicum.filmorate.validator.RealiseDateContraint;
 
 /**
  * // TODO .
@@ -18,10 +21,17 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode(of = "id")
 public class Film {
-	Integer id;
-	@NotBlank
+	long id;
 	String name;
-	@JsonIgnore
-	Set<Integer> userIds = new HashSet<>();
+	@NotNull
+	Mpa mpa; // films.mpa_id <- mpa.get()
+	public Set<Genre> genres; // genre_films.film_id и genre_id
+
+	@NotNull
+	@RealiseDateContraint
+	LocalDate realiseDate;
 }

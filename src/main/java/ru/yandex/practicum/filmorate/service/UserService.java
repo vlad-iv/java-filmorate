@@ -3,7 +3,7 @@ package ru.yandex.practicum.filmorate.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ru.yandex.practicum.filmorate.dao.UserStorage;
+import ru.yandex.practicum.filmorate.dao.UserRepository;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 
@@ -14,46 +14,61 @@ import ru.yandex.practicum.filmorate.model.User;
  */
 @Service
 public class UserService {
-	@Autowired
-	UserStorage userStorage;
 
-	public User get(int userId) {
-//		final User user = userStorage.get(userId);
-//		if (user == null) {
-//			throw new NotFoundException("User with id=" + userId + " not found");
-//		}
-		final User user = userStorage.get(userId)
-				.orElseThrow(() -> new NotFoundException("User not found with " + userId));
-		return user;
-	}
+	@Autowired
+	UserRepository repository;
+
 
 	public User save(User user) {
-		return userStorage.save(user);
+		return repository.save(user);
 	}
 
 	public void update(User user) {
-		if (userStorage.get(user.getId()) == null) {
+		if (repository.getById(user.getId()) == null) {
 			throw new RuntimeException("User not found");
 		}
-		userStorage.update(user);
+		repository.update(user);
 	}
 
-	public void addFriend(int userId, int friendId) {
-		final User user = userStorage.get(userId)
-				.orElseThrow(() -> new NotFoundException("User not found with " + userId));
-		final User friend = userStorage.get(friendId)
-				.orElseThrow(() -> new NotFoundException("Friend not found with " + friendId));
-		// TODO check userId and  friendId
+	public User get(long id) {
+		final User user = repository.getById(id);
+		if (user == null) {
+			throw new NotFoundException("user with id=" + id + " not found");
+		}
+		return user;
+	}
 
-		userStorage.addFriend(user, friend);
+
+
+//	List<Film> getAll() {
+//		List<Film> films = filmStrorage.getAll(); // mpa
+//		for (Film film : films) {
+//			genreStrorage.loadFilmGenre(film);
+//		}
+//		return films;
+//	}
+
+	/*
+
+	 */
+
+
+	public void addFriend(int userId, int friendId) {
+//		final User user = repository.get(userId)
+//				.orElseThrow(() -> new NotFoundException("User not found with " + userId));
+//		final User friend = repository.get(friendId)
+//				.orElseThrow(() -> new NotFoundException("Friend not found with " + friendId));
+//		// TODO check userId and  friendId
+//
+//		repository.addFriend(user, friend);
 	}
 
 	public void deleteFriend(int userId, int friendId) {
-		final User user = userStorage.get(userId)
-				.orElseThrow(() -> new NotFoundException("User not found with " + userId));
-		final User friend = userStorage.get(friendId)
-				.orElseThrow(() -> new NotFoundException("Friend not found with " + friendId));
-		// TODO check userId and  friendId
-		userStorage.deleteFriend(user, friend);
+//		final User user = repository.get(userId)
+//				.orElseThrow(() -> new NotFoundException("User not found with " + userId));
+//		final User friend = repository.get(friendId)
+//				.orElseThrow(() -> new NotFoundException("Friend not found with " + friendId));
+//		// TODO check userId and  friendId
+//		repository.deleteFriend(user, friend);
 	}
 }
