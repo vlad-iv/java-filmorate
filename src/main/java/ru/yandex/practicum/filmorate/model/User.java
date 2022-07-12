@@ -37,4 +37,5 @@ public class User {
 	@NotNull(groups = {Update.class})
 	@RealiseDateContraint
 	LocalDate realiseDate;
+
 }

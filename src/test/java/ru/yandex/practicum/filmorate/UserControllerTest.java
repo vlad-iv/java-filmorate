@@ -1,6 +1,6 @@
 package ru.yandex.practicum.filmorate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
 
@@ -16,6 +16,8 @@ import ru.yandex.practicum.filmorate.service.ValidateService;
  */
 
 class UserControllerTest {
+
+	//	ObjectMapper objectMapper; // Замена Gson (это Jackson, по умолчанию в спринге)
 	@Test
 	void validateBirthday() {
 		final ValidateService validateService = new ValidateService();
@@ -23,7 +25,7 @@ class UserControllerTest {
 		user.setName("name");
 		user.setBirthday(LocalDate.MAX);
 
-		assertThrows(RuntimeException.class, () -> validateService.validateUser(user) );
+		assertThrows(RuntimeException.class, () -> validateService.validateUser(user));
 	}
 
 }
