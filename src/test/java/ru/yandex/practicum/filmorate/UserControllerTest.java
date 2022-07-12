@@ -6,6 +6,9 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
+import ru.yandex.practicum.filmorate.controller.UserController;
+import ru.yandex.practicum.filmorate.model.User;
+
 /**
  * // TODO .
  *
