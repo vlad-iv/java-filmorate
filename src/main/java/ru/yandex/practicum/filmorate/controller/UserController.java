@@ -3,7 +3,9 @@ package ru.yandex.practicum.filmorate.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,13 +14,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ru.yandex.practicum.filmorate.model.User;
-import ru.yandex.practicum.filmorate.repository.UserRepository;
+import ru.yandex.practicum.filmorate.service.UserService;
 import ru.yandex.practicum.filmorate.service.ValidateService;
 
 /**
- * // TODO .
+ * User controller.
  *
  * @author Vladimir Ivanov (ivanov.vladimir.l@gmail.com)
  */
@@ -26,49 +29,43 @@ import ru.yandex.practicum.filmorate.service.ValidateService;
 @RequestMapping("users")
 @Validated
 @Slf4j
+@RequiredArgsConstructor
 public class UserController {
 	final ValidateService validateService;
-	UserRepository repository;
 
-	public UserController(ValidateService validateService) {
-		this.validateService = validateService;
-	}
+	final UserService userService;
 
-	@GetMapping()
-	User getUser() {
-//		repository.getById()
-//		User user = repository.findById()
-//		List<User> users =  repository.findByName()
-//		List<User> users =  repository.findAll()
-//
-//		repository.search(UserFilter)
-//		repository.find(UserFilter)
-		return new User(1L, "User", null, null);
+	@GetMapping("/{userId}")
+	User get(@PathVariable Integer userId) {
+		log.info("Get user by id={}", userId);
+		return userService.get(userId);
 	}
 
 	@PostMapping()
 	@ResponseStatus(HttpStatus.CREATED)
-	User saveUser(@RequestBody @Valid User user) { // TODO id ignored, generated
+	User save(@RequestBody @Valid User user) {
 		log.info("Create User: {} - Started", user);
 		validateService.validateUser(user);
-		repository.save(user);
-		log.info("Create User: {} - Finished", user);
-		return user;
+		User saved = userService.save(user);
+		log.info("Create User: {} - Finished", saved);
+		return saved;
 	}
 
 	@PutMapping()
 	void updateUser(@RequestBody @Valid User user) {// TODO id != null
 		validateService.validateUser(user);
-		repository.save(user);
+		userService.update(user);
 	}
 
-	private void save(User user) {
+	@PutMapping("/users/{userId}/friends/{friendId}")
+	public void addFriend(@PathVariable int userId, @PathVariable int friendId) {
+		userService.addFriend(userId, friendId);
+	}
 
+	@DeleteMapping("/users/{userId}/friends/{friendId}")
+	public void deleteFriend(@PathVariable int userId, @PathVariable int friendId) {
+		userService.deleteFriend(userId, friendId);
 	}
 
 
-	@GetMapping("films")
-	User getFilms() {
-		return new User(2L, "Film", null, null);
-	}
 }
