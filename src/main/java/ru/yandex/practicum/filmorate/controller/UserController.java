@@ -1,7 +1,5 @@
 package ru.yandex.practicum.filmorate.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -15,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.yandex.practicum.filmorate.dao.UserRepository;
+import ru.yandex.practicum.filmorate.repository.UserRepository;
 import ru.yandex.practicum.filmorate.service.ValidateService;
 import ru.yandex.practicum.filmorate.model.User;
 
@@ -45,7 +43,7 @@ public class UserController {
 //
 //		repository.search(UserFilter)
 //		repository.find(UserFilter)
-		return new User(1L, "User", null);
+		return new User(1L, "User", null, null);
 	}
 
 	@PostMapping()
@@ -71,6 +69,6 @@ public class UserController {
 
 	@GetMapping("films")
 	User getFilms() {
-		return new User(2L, "Film", null);
+		return new User(2L, "Film", null, null);
 	}
 }
