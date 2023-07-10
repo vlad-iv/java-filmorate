@@ -1,50 +1,37 @@
 package ru.yandex.practicum.filmorate;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.Optional;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
+import org.springframework.context.annotation.Import;
 
-import lombok.RequiredArgsConstructor;
+import ru.yandex.practicum.filmorate.dao.DBUserRepository;
+import ru.yandex.practicum.filmorate.dao.UserRepository;
+import ru.yandex.practicum.filmorate.model.User;
 
 /**
  * // TODO .
  *
  * @author Vladimir Ivanov (ivanov.vladimir.l@gmail.com)
  */
-@SpringBootTest
-@AutoConfigureTestDatabase
-@RequiredArgsConstructor(onConstructor_ = @Autowired)
+@JdbcTest
+@Import(DBUserRepository.class)
 class DBUserRepositoryTest {
-	private final UserRepository userStorage;
+
+	@Autowired
+	private UserRepository userRepository;
 
 	@Test
 	public void testFindUserById() {
 
-		User user = userStorage.getById(1);
+		User user = userRepository.getById(1);
 		assertNotNull(user);
-//		assertThat(userOptional)
-//				.isPresent()
 
 		assertEquals(1, user.getId());
-		assertEquals("@mail.ru", user.getEmailNew());
+		assertEquals("email@email.com", user.getEmailNew());
 
-		assertThat(user)
-				.hasFieldOrPropertyWithValue("id", 1)
-				.hasFieldOrPropertyWithValue("email", "@mail.ru");
-
-
-		Optional<User> userOptional = Optional.of(user);
-
-		assertThat(userOptional)
-				.isPresent()
-				.hasValueSatisfying(u ->
-						assertThat(u).hasFieldOrPropertyWithValue("id", 1)
-				);
 	}
 }

@@ -1,4 +1,4 @@
-package ru.yandex.practicum.filmorate;
+package ru.yandex.practicum.filmorate.model;
 
 import java.util.Set;
 
@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -28,5 +27,5 @@ public class Film {
 	String name;
 	@NotNull
 	Mpa mpa; // films.mpa_id <- mpa.get()
-	Set<Genre> genres; // genre_films.film_id и genre_id
+	public Set<Genre> genres; // genre_films.film_id и genre_id
 }

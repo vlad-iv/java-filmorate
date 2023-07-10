@@ -1,6 +1,8 @@
-package ru.yandex.practicum.filmorate;
+package ru.yandex.practicum.filmorate.dao;
 
 import java.util.List;
+
+import ru.yandex.practicum.filmorate.model.User;
 
 /**
  * // TODO .
