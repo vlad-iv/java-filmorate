@@ -19,6 +19,7 @@ public class Film {
 	Integer id;
 	@NotBlank
 	String name;
+
 	@JsonIgnore
 	Set<Integer> userIds = new HashSet<>();
 }

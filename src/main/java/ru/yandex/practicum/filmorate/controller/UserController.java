@@ -36,14 +36,14 @@ public class UserController {
 	final UserService userService;
 
 	@GetMapping("/{userId}")
-	User getUser(@PathVariable Integer userId) {
+	User get(@PathVariable Integer userId) {
 		log.info("Get user by id={}", userId);
 		return userService.get(userId);
 	}
 
 	@PostMapping()
 	@ResponseStatus(HttpStatus.CREATED)
-	User saveUser(@RequestBody @Valid User user) {
+	User save(@RequestBody @Valid User user) {
 		log.info("Create User: {} - Started", user);
 		validateService.validateUser(user);
 		User saved = userService.save(user);
