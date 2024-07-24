@@ -28,7 +28,6 @@ class UserTest {
 	@Test
 	void validateName() {
 		User user = new User();
-		user.setRealiseDate(LocalDate.MAX);
 		user.setName(" ");
 
 		Set<ConstraintViolation<User>> violations = validator.validate(user);
@@ -41,7 +40,6 @@ class UserTest {
 	@Test
 	void validateCorrectName() {
 		User user = new User();
-		user.setRealiseDate(LocalDate.MAX);
 		user.setName("Name");
 
 		Set<ConstraintViolation<User>> violations = validator.validate(user);

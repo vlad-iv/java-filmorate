@@ -2,6 +2,7 @@ package ru.yandex.practicum.filmorate.model;
 
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
@@ -23,16 +24,13 @@ import ru.yandex.practicum.filmorate.validator.RealiseDateContraint;
 @NoArgsConstructor
 public class User {
 	Long id;
-	@Size(min=1 , max=10)
+	@Size(min = 1, max = 10)
 	@NotBlank
 	String name;
 
+	@Email
+	String email;
 	@Past
 	LocalDate birthday;
-
-	@NotNull
-	@RealiseDateContraint
-	LocalDate realiseDate;
-
 
 }

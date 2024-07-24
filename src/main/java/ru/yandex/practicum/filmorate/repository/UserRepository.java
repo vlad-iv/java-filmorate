@@ -1,21 +1,25 @@
 package ru.yandex.practicum.filmorate.repository;
 
-import org.springframework.stereotype.Component;
+import java.util.List;
+import java.util.Optional;
 
 import ru.yandex.practicum.filmorate.model.User;
 
-@Component
-public class UserRepository {
-	private long generatorId = 10;
+/**
+ * User Repository.
+ *
+ * @author Vladimir Ivanov (ivanov.vladimir.l@gmail.com)
+ */
+public interface UserRepository {
+	Optional<User> getById(long id);
 
-	public long generateId() {
-		return ++generatorId;
-	}
+	List<User> getAll();
 
-	public void save(User user) {
-		user.setId(generateId());
-		if (user.getName().isBlank()) {
-			user.setName(user.getName());
-		}
-	}
+	User save(User user); // insert, create
+
+	void addFriend(long userId, long friend);
+
+	void deleteFriend(long userId, long friend);
+
+	void update(User user);
 }

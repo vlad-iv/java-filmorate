@@ -65,6 +65,8 @@ public class UserController {
 	@DeleteMapping("/users/{userId}/friends/{friendId}")
 	public void deleteFriend(@PathVariable int userId, @PathVariable int friendId) {
 		userService.deleteFriend(userId, friendId);
+		//H2 -  MERGE INTO FRIENDS (USER_ID, FRIEND_ID) values (?, ?)
+		//PG -  INSERT ... IF CONFLICT DONOTHING
 	}
 
 
