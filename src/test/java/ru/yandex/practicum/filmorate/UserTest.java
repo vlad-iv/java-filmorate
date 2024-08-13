@@ -3,7 +3,6 @@ package ru.yandex.practicum.filmorate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import java.time.LocalDate;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -28,7 +27,6 @@ class UserTest {
 	@Test
 	void validateName() {
 		User user = new User();
-		user.setRealiseDate(LocalDate.MAX);
 		user.setName(" ");
 
 		Set<ConstraintViolation<User>> violations = validator.validate(user);
@@ -41,7 +39,6 @@ class UserTest {
 	@Test
 	void validateCorrectName() {
 		User user = new User();
-		user.setRealiseDate(LocalDate.MAX);
 		user.setName("Name");
 
 		Set<ConstraintViolation<User>> violations = validator.validate(user);
