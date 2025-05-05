@@ -1,0 +1,12 @@
+spring:
+  main:
+    log-startup-info: true
+    banner-mode: off
+
+logging:
+  level:
+    org.zalando.logbook: DEBUG
+
+jvm-args:
+  -Djava.instrument.traceUsage
+  -XX:+EnableDynamicAgentLoading
